@@ -47,9 +47,9 @@ def add_birthday(args, book: AddressBook):
 
 @input_error
 def change_contact(args, book: AddressBook):
-    name, old_phone, new_phone = args
+    name, new_phone = args
     record = book.find(name)
-    record.edit_phone(old_phone, new_phone)
+    record.edit_phone(new_phone)
     return "Contact updated."
 
 
@@ -101,27 +101,27 @@ def main():
             break
         elif command == "hello":
             print("How can I help you?")
+
         elif command == "add":
             print(add_contact(args, book))
+
         elif command == "change":
             print(change_contact(args, book))
+
         elif command == "phone":
             print(show_phone(args, book))
+
         elif command == "all":
-            # print(show_all(args, book))
             print(show_all(book))
 
         elif command == "show-birthday":
             print(show_birthday(args, book))
-        elif command == "birthdays":
-            # print(show_all_birthdays(args, book))
-            print(show_all_birthdays(book))
 
+        elif command == "birthdays":
+            print(show_all_birthdays(book))
 
         elif command == "add-birthday":
             print(add_birthday(args, book)) 
-
-
 
         else:
             print("Invalid command.")
