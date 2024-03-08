@@ -49,7 +49,7 @@ def add_birthday(args, book: AddressBook):
 def change_contact(args, book: AddressBook):
     name, old_phone, new_phone = args
     record = book.find(name)
-    record.edit_phone(old_phone,new_phone)
+    record.edit_phone(old_phone, new_phone)
     return "Contact updated."
 
 
@@ -91,7 +91,7 @@ def main():
     book = AddressBook()
     print("Welcome to the assistant bot!")
     print(commands_list)
-
+    
     while True:
         user_input = input("Enter a command: ")
         command, *args = parse_input(user_input)
@@ -108,12 +108,16 @@ def main():
         elif command == "phone":
             print(show_phone(args, book))
         elif command == "all":
-            print(show_all(args, book))
+            # print(show_all(args, book))
+            print(show_all(book))
 
         elif command == "show-birthday":
             print(show_birthday(args, book))
         elif command == "birthdays":
-            print(show_all_birthdays(args, book))
+            # print(show_all_birthdays(args, book))
+            print(show_all_birthdays(book))
+
+
         elif command == "add-birthday":
             print(add_birthday(args, book)) 
 
