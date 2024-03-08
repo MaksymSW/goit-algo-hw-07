@@ -6,7 +6,7 @@ def input_error(func):
         try:
             return func(*args, **kwargs)
         except ValueError:
-            return "Give me name and phone, please"
+            return "Give me name and phone, please (The phone number must consist of 10 digits)"
         except KeyError:
             return "No such name found"
         except IndexError:
@@ -72,12 +72,26 @@ def show_all(book: AddressBook):
 def show_all_birthdays(book: AddressBook):
     return book.get_upcoming_birthdays()
 
-
+commands_list = """
+Commands:
+1. add [name] [phone]: Add a new contact with a name and phone number, or update the phone number for an existing contact.
+2. change [name] [new phone]: Change the phone number for the specified contact.
+3. phone [name]: Show the phone number for the specified contact.
+4. all: Show all contacts in the address book.
+5. add-birthday [name] [date of birth]: Add the date of birth for the specified contact.
+6. show-birthday [name]: Show the date of birth for the specified contact.
+7. birthdays: Show upcoming birthdays within the next week.
+8. hello: Receive a greeting from the bot.
+9. close or exit: Close the program.
+10. commands: Print the list of commands.
+"""
 
 
 def main():
     book = AddressBook()
     print("Welcome to the assistant bot!")
+    print(commands_list)
+
     while True:
         user_input = input("Enter a command: ")
         command, *args = parse_input(user_input)
