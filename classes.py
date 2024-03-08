@@ -55,12 +55,12 @@ class Record:
     def remove_phone(self, phone):
         self.phones = [p for p in self.phones if p.value != phone]
 
-    def edit_phone(self, old_phone, new_phone):
-        if self.find_phone(old_phone):
-            self.remove_phone(old_phone)
-            self.add_phone(new_phone)
-        else:
-            raise ValueError("The phone number does not exist") 
+
+        
+    def edit_phone(self, new_phone):
+            self.add_phone(new_phone)      
+
+
 
     def find_phone(self, phone):
         for p in self.phones:
@@ -90,12 +90,11 @@ class AddressBook(UserDict):
         upcoming_birthdays=[]
         today = datetime.today().date()
 
-        for user in self.data.values():       
-            # today = datetime.today().date()
-            birthday = user.birthday.value.date()
-            # birthday = user.birthday.value()
+        for user in self.data.values():   
+            if user.birthday is None: continue
+            birthday:datetime = user.birthday.value
             birthday_this_year = datetime(today.year, birthday.month, birthday.day).date()
-            # print(birthday_this_year)
+
             diffrence = birthday_this_year - today
 
             if diffrence <= timedelta(days=6) and diffrence >= timedelta(days=0):
@@ -104,14 +103,10 @@ class AddressBook(UserDict):
                 if birthday_this_year.weekday() == 6:
                     birthday_this_year = birthday_this_year + timedelta(days=1)
         
-                # congrat_date = birthday_this_year.strftime("%Y.%m.%d")
-
-                # to_congratulate = {"name": user["name"], "congratulation_date": congrat_date}
-                # upcoming_birthdays.append(to_congratulate.copy())
                 upcoming_birthdays.append({'name': user.name.value,
                         'congratulation': birthday_this_year.strftime('%d.%m.%Y')})
 
             return upcoming_birthdays
+        
     def __str__(self):
-        # Представлення телефонної книги у зрозумілому форматі
         return "\n".join(str(user) for user in self.data.values())
